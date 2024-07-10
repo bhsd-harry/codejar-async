@@ -31,7 +31,8 @@ Create an element and init the CodeJar 🍯:
 Second argument to `CodeJar` is a highlighting function (like Prism.js, highlight.js):
 
 ```ts
-const highlight = async (code: string) => {
+const highlight = async (editor: HTMLElement) => {
+  const code = editor.textContent
   code = code.replace('foo', '<span style="color: red">foo</span>')
   return code
 }

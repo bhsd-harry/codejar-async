@@ -20,19 +20,18 @@ export function CodeJar(editor, highlight, opt = {}) {
     editor.style.overflowWrap = 'break-word';
     editor.style.overflowY = 'auto';
     editor.style.whiteSpace = 'pre-wrap';
-    let str;
     let running;
     /**
      * Execute the highlight
-     * @param text
      * @description
      * - After the highlight is done, check if `this.text` has changed
      * - If it has, start a new highlight
      * - Always render the result of the latest highlight
      */
-    async function print(text) {
-        const html = await highlight(text);
-        if (str === text) {
+    async function print() {
+        const text = toString();
+        const html = await highlight(editor);
+        if (toString() === text) {
             running = false;
             const pos = save();
             editor.innerHTML = html;
@@ -40,7 +39,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             recordHistory();
             return;
         }
-        return print(str);
+        return print();
     }
     /**
      * Submit a new text to be highlighted
@@ -50,10 +49,9 @@ export function CodeJar(editor, highlight, opt = {}) {
      * - Otherwise start a new highlight
      */
     const doHighlight = () => {
-        str = toString();
         if (!running) {
             running = true;
-            void print(str);
+            void print();
         }
     };
     let isLegacy = false; // true if plaintext-only is not supported

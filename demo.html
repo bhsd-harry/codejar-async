@@ -5,6 +5,7 @@
   <title>CodeJar 🍯</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
   <link href="/wikiparser-node/extensions/ui.css" rel="stylesheet">
+  <link href="https://testingcf.jsdelivr.net/npm/codejar-linenumbers/es/codejar-linenumbers.min.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -18,7 +19,7 @@
     }
 
     main {
-      max-width: 800px;
+      max-width: 90vw;
       margin: 40px auto;
       padding: 20px;
     }
@@ -44,13 +45,17 @@
 </main>
 <script type="module">
   import {CodeJar} from './dist/codejar.js'
+  import {withLineNumbers} from './dist/codejar-linenumbers.js'
   const editor = document.querySelector('.editor')
 
-  const highlight = async text => {
-    return (await wikiparse.print(text)).map(([,, printed]) => printed).join('')
+  const highlight = async ele => {
+    return (await wikiparse.print(ele.textContent)).map(([,, printed]) => printed).join('')
   }
 
-  const jar = CodeJar(editor, highlight, {
+  const config = await (await fetch('/wikiparser-node/config/default.json')).json();
+  wikiparse.setConfig(config);
+
+  const jar = CodeJar(editor, withLineNumbers(highlight), {
     spellcheck: true,
   })
 
@@ -58,9 +63,6 @@
   jar.onUpdate(code => {
     localStorage.setItem('code', code)
   })
-
-  const config = await (await fetch('/wikiparser-node/config/default.json')).json();
-	wikiparse.setConfig(config);
 </script>
 <script src="/wikiparser-node/extensions/dist/base.js"></script>
 </body>

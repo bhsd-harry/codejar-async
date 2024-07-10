@@ -20,7 +20,7 @@ export type Position = {
 
 export type CodeJar = ReturnType<typeof CodeJar>
 
-export function CodeJar(editor: HTMLElement, highlight: (e: string) => Promise<string>, opt: Partial<Options> = {}) {
+export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Promise<string>, opt: Partial<Options> = {}) {
   const options: Options = {
     spellcheck: false,
     history: true,
@@ -45,20 +45,19 @@ export function CodeJar(editor: HTMLElement, highlight: (e: string) => Promise<s
   editor.style.overflowY = 'auto'
   editor.style.whiteSpace = 'pre-wrap'
 
-  let str: string
   let running: boolean
 
   /**
    * Execute the highlight
-   * @param text
    * @description
    * - After the highlight is done, check if `this.text` has changed
    * - If it has, start a new highlight
    * - Always render the result of the latest highlight
    */
-  async function print(text: string): Promise<void> {
-    const html = await highlight(text)
-    if (str === text) {
+  async function print(): Promise<void> {
+    const text = toString()
+    const html = await highlight(editor)
+    if (toString() === text) {
       running = false
       const pos = save()
       editor.innerHTML = html
@@ -66,7 +65,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: string) => Promise<s
       recordHistory()
       return
     }
-    return print(str)
+    return print()
   }
 
   /**
@@ -77,10 +76,9 @@ export function CodeJar(editor: HTMLElement, highlight: (e: string) => Promise<s
    * - Otherwise start a new highlight
    */
   const doHighlight = () => {
-    str = toString()
     if (!running) {
       running = true
-      void print(str)
+      void print()
     }
   }
 
