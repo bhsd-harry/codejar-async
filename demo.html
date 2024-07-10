@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>CodeJar 🍯</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+  <link href="/wikiparser-node/extensions/ui.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -46,20 +46,22 @@
   import {CodeJar} from './dist/codejar.js'
   const editor = document.querySelector('.editor')
 
-  const highlight = editor => {
-    editor.innerHTML = Prism.highlight(editor.textContent, Prism.languages.javascript, 'javascript')
+  const highlight = async text => {
+    return (await wikiparse.print(text)).map(([,, printed]) => printed).join('')
   }
 
   const jar = CodeJar(editor, highlight, {
-    tab: '  ',
+    spellcheck: true,
   })
 
   jar.updateCode(localStorage.getItem('code'))
   jar.onUpdate(code => {
     localStorage.setItem('code', code)
   })
+
+  const config = await (await fetch('/wikiparser-node/config/default.json')).json();
+	wikiparse.setConfig(config);
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="/wikiparser-node/extensions/dist/base.js"></script>
 </body>
 </html>

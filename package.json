@@ -1,49 +1,27 @@
 {
-  "name": "codejar",
+  "name": "codejar-async",
   "description": "An embeddable code editor for the browser",
   "version": "4.2.0",
   "type": "module",
   "main": "./dist/codejar.js",
   "types": "./dist/codejar.d.ts",
-  "exports": {
-    ".": "./dist/codejar.js",
-    "./cursor": "./dist/cursor.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/codejar.d.ts"
-      ],
-      "cursor": [
-        "./dist/cursor.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "start": "tsc -w",
+    "lint": "tsc --noEmit && eslint .",
     "build": "tsc",
-    "size": "minify ./dist/codejar.js --sourceType module | gzip-size",
-    "release": "release-it"
+    "server": "npm run test:end; http-server .. -c-1 --cors &",
+    "test:end": "pkill -x http-server"
   },
   "devDependencies": {
-    "babel-minify": "^0.5.2",
-    "gzip-size-cli": "^5.1.0",
-    "release-it": "^16.1.3",
-    "typescript": "^5.1.6"
-  },
-  "release-it": {
-    "github": {
-      "release": true
-    },
-    "hooks": {
-      "after:bump": "npm run build"
-    }
+    "@bhsd/common": "^0.0.0"
   },
   "license": "MIT",
-  "repository": "antonmedv/codejar",
-  "author": "Anton Medvedev <anton@medv.io>",
+  "repository": "bhsd-harry/codejar",
+  "contributors": [
+    "Anton Medvedev <anton@medv.io>",
+    "Bhsd"
+  ],
   "homepage": "https://medv.io/codejar/"
 }

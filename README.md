@@ -2,24 +2,21 @@
 <h3 align="center">CodeJar – an embeddable code editor for the browser</h3>
 <p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar/screenshot.png" width="709"></a></p>
 
-[![npm](https://img.shields.io/npm/v/codejar?color=brightgreen)](https://www.npmjs.com/package/codejar)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/codejar?label=size)](https://bundlephobia.com/result?p=codejar)
+[![npm](https://img.shields.io/npm/v/codejar-async?color=brightgreen)](https://www.npmjs.com/package/codejar-async)
 
 ## Features
 
 * Lightweight (**2.45 kB** only)
 * No dependencies
-* Preserves indentation on a new line
-* Adds closing brackets, quotes
-* Indents line with the **Tab** key
-* Supports **undo**/**redo** 
+* Async highlighting
+* Supports **undo**/**redo**
 
 ## Getting Started
 
 Install CodeJar 🍯 &nbsp; via npm:
 
 ```bash
-npm i codejar
+npm i codejar-async
 ```
 
 Create an element and init the CodeJar 🍯:
@@ -34,32 +31,23 @@ Create an element and init the CodeJar 🍯:
 Second argument to `CodeJar` is a highlighting function (like Prism.js, highlight.js):
 
 ```ts
-const highlight = (editor: HTMLElement) => {
-  const code = editor.textContent
+const highlight = async (code: string) => {
   code = code.replace('foo', '<span style="color: red">foo</span>')
-  editor.innerHTML = code
+  return code
 }
 
 const jar = CodeJar(editor, highlight)
 ```
 
 Third argument to `CodeJar` is options:
-  - `tab: string` replaces "tabs" with given string. Default: `\t`.
-    - Note: use css rule `tab-size` to customize size.
-  - `indentOn: RegExp` allows auto indent rule to be customized. Default `/[({\[]$/`.
-  - `moveToNewLine: RegExp` checks in extra newline character need to be added. Default `/^[)}\]]/`.
-  - `spellcheck: boolean` enables spellchecking on the editor. Default `false`.
-  - `catchTab: boolean` catches Tab keypress events and replaces it with `tab` string. Default: `true`.
-  - `preserveIdent: boolean` keeps indent levels on new line. Default `true`.
-  - `addClosing: boolean` automatically adds closing brackets, quotes. Default `true`.
-  - `history` records history. Default `true`.
-  - `window` window object. Default: `window`.
 
+- `spellcheck: boolean` enables spellchecking on the editor. Default `false`.
+- `history` records history. Default `true`.
+- `window` window object. Default: `window`.
 
 ```js
 const options = {
-  tab: ' '.repeat(4), // default is '\t'
-  indentOn: /[(\[]$/, // default is /{$/
+  spellcheck: true, // default is false
 }
 
 const jar = CodeJar(editor, highlight, options)
@@ -67,7 +55,7 @@ const jar = CodeJar(editor, highlight, options)
 
 ## API
 
-#### `updateCode(string)`
+### `updateCode(string)`
 
 Updates the code.
 
@@ -75,16 +63,15 @@ Updates the code.
 jar.updateCode(`let foo = bar`)
 ```
 
-#### `updateOptions(Partial<Options>)`
+### `updateOptions(Partial<Options>)`
 
 Updates the options.
 
 ```js
-jar.updateOptions({tab: '\t'})
+jar.updateOptions({spellcheck: true})
 ```
 
-
-#### `onUpdate((code: string) => void)`
+### `onUpdate((code: string) => void)`
 
 Calls callback on code updates.
 
@@ -94,7 +81,7 @@ jar.onUpdate(code => {
 })
 ```
 
-#### `toString(): string`
+### `toString(): string`
 
 Return current code.
 
@@ -102,7 +89,7 @@ Return current code.
 let code = jar.toString()
 ```
 
-#### `save(): string`
+### `save(): string`
 
 Saves current cursor position.
 
@@ -110,7 +97,7 @@ Saves current cursor position.
 let pos = jar.save()
 ```
 
-#### `restore(pos: Position)`
+### `restore(pos: Position)`
 
 Restore cursor position.
 
@@ -118,18 +105,18 @@ Restore cursor position.
 jar.restore(pos)
 ```
 
-#### `recordHistory()`
+### `recordHistory()`
 
 Saves current editor state to history.
 
-#### `destroy()`
+### `destroy()`
 
 Removes event listeners from editor.
 
 ## Related
 
-* [react-codejar](https://github.com/guilhermelimak/react-codejar) - a React wrapper for CodeJar. 
-* [ngx-codejar](https://github.com/julianpoemp/ngx-codejar) - an Angular wrapper for CodeJar. 
+* [react-codejar](https://github.com/guilhermelimak/react-codejar) - a React wrapper for CodeJar.
+* [ngx-codejar](https://github.com/julianpoemp/ngx-codejar) - an Angular wrapper for CodeJar.
 * [codejar-linenumbers](https://github.com/julianpoemp/codejar-linenumbers) - an JS library for line numbers.
 
 ## License

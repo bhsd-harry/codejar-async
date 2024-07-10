@@ -2,3 +2,5 @@
 package-lock.json
 *.js
 *.d.ts
+/.vscode/
+.markdownlint.json
