@@ -5,7 +5,6 @@
   <title>CodeJar 🍯</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
   <link href="/wikiparser-node/extensions/ui.css" rel="stylesheet">
-  <link href="https://testingcf.jsdelivr.net/npm/codejar-linenumbers/es/codejar-linenumbers.min.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -41,29 +40,22 @@
 </head>
 <body>
 <main>
-  <div class="editor" data-manual data-gramm="false"></div>
+  <textarea id="wpTextbox1"></textarea>
 </main>
 <script type="module">
-  import {CodeJar} from './dist/codejar.js'
-  import {withLineNumbers} from './dist/codejar-linenumbers.js'
-  const editor = document.querySelector('.editor')
-
-  const highlight = async ele => {
-    return (await wikiparse.print(ele.textContent)).map(([,, printed]) => printed).join('')
-  }
+  import {CodeJar} from './application/dist/codejar-wiki.min.js'
 
   const config = await (await fetch('/wikiparser-node/config/default.json')).json();
   wikiparse.setConfig(config);
 
-  const jar = CodeJar(editor, withLineNumbers(highlight), {
-    spellcheck: true,
-  })
+  const textarea = document.getElementById('wpTextbox1')
+  const jar = CodeJar(textarea)
+  textarea.nextSibling.classList.add('editor')
 
   jar.updateCode(localStorage.getItem('code'))
   jar.onUpdate(code => {
     localStorage.setItem('code', code)
   })
 </script>
-<script src="/wikiparser-node/extensions/dist/base.js"></script>
 </body>
 </html>

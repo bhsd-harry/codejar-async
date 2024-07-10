@@ -187,6 +187,7 @@ export function CodeJar(editor, highlight, opt = {}) {
         return pos;
     }
     function restore(pos) {
+        var _a, _b;
         const s = getSelection();
         let startNode, startOffset = 0;
         let endNode, endOffset = 0;
@@ -233,14 +234,14 @@ export function CodeJar(editor, highlight, opt = {}) {
             const startEl = uneditable(startNode);
             if (startEl) {
                 const node = document.createTextNode('');
-                startEl.parentNode?.insertBefore(node, startEl);
+                (_a = startEl.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(node, startEl);
                 startNode = node;
                 startOffset = 0;
             }
             const endEl = uneditable(endNode);
             if (endEl) {
                 const node = document.createTextNode('');
-                endEl.parentNode?.insertBefore(node, endEl);
+                (_b = endEl.parentNode) === null || _b === void 0 ? void 0 : _b.insertBefore(node, endEl);
                 endNode = node;
                 endOffset = 0;
             }
@@ -321,7 +322,7 @@ export function CodeJar(editor, highlight, opt = {}) {
                 && lastRecord.pos.end === pos.end)
                 return;
         }
-        if (lastRecord?.text !== text)
+        if ((lastRecord === null || lastRecord === void 0 ? void 0 : lastRecord.text) !== text)
             at++;
         history[at] = { text, html, pos };
         history.splice(at + 1);
@@ -332,17 +333,19 @@ export function CodeJar(editor, highlight, opt = {}) {
         }
     }
     function handlePaste(event) {
+        var _a;
         if (event.defaultPrevented)
             return;
         preventDefault(event);
-        const originalEvent = event.originalEvent ?? event;
+        const originalEvent = (_a = event.originalEvent) !== null && _a !== void 0 ? _a : event;
         const text = originalEvent.clipboardData.getData('text/plain').replace(/\r\n?/g, '\n');
         insert(text);
         doHighlight();
     }
     function handleCut(event) {
+        var _a;
         const selection = getSelection();
-        const originalEvent = event.originalEvent ?? event;
+        const originalEvent = (_a = event.originalEvent) !== null && _a !== void 0 ? _a : event;
         originalEvent.clipboardData.setData('text/plain', selection.toString());
         document.execCommand('delete');
         doHighlight();

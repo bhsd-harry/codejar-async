@@ -1,16 +1,23 @@
 {
   "name": "codejar-async",
   "description": "An embeddable code editor for the browser",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "type": "module",
   "main": "./dist/codejar.js",
   "types": "./dist/codejar.d.ts",
+  "exports": {
+    ".": "./dist/codejar.js",
+    "./linenumbers": "./dist/codejar-linenumbers.js",
+    "./wiki": "./application/dist/codejar-wiki.min.js"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "lint": "tsc --noEmit && eslint .",
-    "build": "tsc",
+    "lint": "tsc --noEmit && tsc --noEmit --project application/tsconfig.json && eslint --cache .",
+    "build:core": "rm -rf dist/; tsc",
+    "build:application": "esbuild application/codejar-wiki.ts --bundle --minify --target=es2018 --format=esm --sourcemap --outfile=application/dist/codejar-wiki.min.js",
+    "build": "npm run build:core && npm run build:application",
     "server": "npm run test:end; http-server .. -c-1 --cors &",
     "test:end": "pkill -x http-server"
   },
