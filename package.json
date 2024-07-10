@@ -18,7 +18,10 @@
     "@bhsd/common": "^0.0.0"
   },
   "license": "MIT",
-  "repository": "bhsd-harry/codejar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhsd-harry/codejar.git"
+  },
   "contributors": [
     "Anton Medvedev <anton@medv.io>",
     "Bhsd"
