@@ -1,7 +1,9 @@
 const globalWindow = window
 
 type Options = {
+  tab: string
   spellcheck: boolean
+  catchTab: boolean
   preserveIdent: boolean
   history: boolean
   window: typeof window
@@ -23,7 +25,9 @@ export type CodeJar = ReturnType<typeof CodeJar>
 
 export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Promise<string>, opt: Partial<Options> = {}) {
   const options: Options = {
+    tab: '\t',
     spellcheck: false,
+    catchTab: true,
     preserveIdent: true,
     history: true,
     window: globalWindow,
@@ -118,6 +122,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     prev = toString()
     if (options.preserveIdent) handleNewLine(event)
     else legacyNewLineFix(event)
+    if (options.catchTab) handleTabCharacters(event)
     if (options.history) {
       handleUndoRedo(event)
       if (shouldRecord(event) && !recording) {
@@ -351,6 +356,28 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
         restore(pos)
       } else {
         insert('\n')
+      }
+    }
+  }
+
+  function handleTabCharacters(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      preventDefault(event)
+      if (event.shiftKey) {
+        const before = beforeCursor()
+        let [padding, start] = findPadding(before)
+        if (padding.length > 0) {
+          const pos = save()
+          // Remove full length tab or just remaining padding
+          const len = Math.min(options.tab.length, padding.length)
+          restore({start, end: start + len})
+          document.execCommand('delete')
+          pos.start -= len
+          pos.end -= len
+          restore(pos)
+        }
+      } else {
+        insert(options.tab)
       }
     }
   }

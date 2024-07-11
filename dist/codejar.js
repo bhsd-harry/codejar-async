@@ -1,7 +1,9 @@
 const globalWindow = window;
 export function CodeJar(editor, highlight, opt = {}) {
     const options = {
+        tab: '\t',
         spellcheck: false,
+        catchTab: true,
         preserveIdent: true,
         history: true,
         window: globalWindow,
@@ -89,6 +91,8 @@ export function CodeJar(editor, highlight, opt = {}) {
             handleNewLine(event);
         else
             legacyNewLineFix(event);
+        if (options.catchTab)
+            handleTabCharacters(event);
         if (options.history) {
             handleUndoRedo(event);
             if (shouldRecord(event) && !recording) {
@@ -310,6 +314,28 @@ export function CodeJar(editor, highlight, opt = {}) {
             }
             else {
                 insert('\n');
+            }
+        }
+    }
+    function handleTabCharacters(event) {
+        if (event.key === 'Tab') {
+            preventDefault(event);
+            if (event.shiftKey) {
+                const before = beforeCursor();
+                let [padding, start] = findPadding(before);
+                if (padding.length > 0) {
+                    const pos = save();
+                    // Remove full length tab or just remaining padding
+                    const len = Math.min(options.tab.length, padding.length);
+                    restore({ start, end: start + len });
+                    document.execCommand('delete');
+                    pos.start -= len;
+                    pos.end -= len;
+                    restore(pos);
+                }
+            }
+            else {
+                insert(options.tab);
             }
         }
     }
