@@ -1,7 +1,5 @@
 /node_modules/
 package-lock.json
 *.d.ts
-*.map
 /.vscode/
 .markdownlint.json
-.eslintcache

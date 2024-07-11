@@ -462,7 +462,6 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     },
     updateCode(code: string, callOnUpdate: boolean = true) {
       editor.textContent = code
-      editor.focus()
       doHighlight()
       callOnUpdate && onUpdate(code)
     },

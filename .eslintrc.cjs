@@ -24,7 +24,12 @@ module.exports = {
 		curly: 0,
 		eqeqeq: 0,
 		'logical-assignment-operators': 0,
-		'new-cap': 0,
+		'new-cap': [
+			2,
+			{
+				capIsNew: false,
+			},
+		],
 		'no-param-reassign': 0,
 		'no-sequences': 0,
 		'no-underscore-dangle': 0,
@@ -96,12 +101,6 @@ module.exports = {
 					},
 				],
 				'@typescript-eslint/prefer-destructuring': 0,
-			},
-		},
-		{
-			files: 'application/*.ts',
-			parserOptions: {
-				project: 'application/tsconfig.json',
 			},
 		},
 		{
