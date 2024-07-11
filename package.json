@@ -11,8 +11,7 @@
     "./wiki": "./application/dist/codejar-wiki.min.js"
   },
   "files": [
-    "dist",
-    "application/dist"
+    "dist"
   ],
   "scripts": {
     "lint": "tsc --noEmit && tsc --noEmit --project application/tsconfig.json && eslint --cache .",
