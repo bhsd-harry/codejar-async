@@ -41,7 +41,7 @@
 </head>
 <body>
 <main>
-  <div class="editor" data-manual data-gramm="false"></div>
+  <div class="editor wpb-root" data-manual data-gramm="false"></div>
 </main>
 <script type="module">
   import {CodeJar} from './dist/codejar.js'
@@ -63,6 +63,8 @@
   jar.onUpdate(code => {
     localStorage.setItem('code', code)
   })
+
+  window.jar = jar
 </script>
 <script src="/wikiparser-node/extensions/dist/base.js"></script>
 </body>
