@@ -2,6 +2,7 @@ const globalWindow = window
 
 type Options = {
   spellcheck: boolean
+  preserveIdent: boolean
   history: boolean
   window: typeof window
 }
@@ -23,6 +24,7 @@ export type CodeJar = ReturnType<typeof CodeJar>
 export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Promise<string>, opt: Partial<Options> = {}) {
   const options: Options = {
     spellcheck: false,
+    preserveIdent: true,
     history: true,
     window: globalWindow,
     ...opt,
@@ -114,7 +116,8 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     if (event.defaultPrevented) return
 
     prev = toString()
-    legacyNewLineFix(event)
+    if (options.preserveIdent) handleNewLine(event)
+    else legacyNewLineFix(event)
     if (options.history) {
       handleUndoRedo(event)
       if (shouldRecord(event) && !recording) {
@@ -299,6 +302,15 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     }
   }
 
+  function beforeCursor() {
+    const s = getSelection()
+    const r0 = s.getRangeAt(0)
+    const r = document.createRange()
+    r.selectNodeContents(editor)
+    r.setEnd(r0.startContainer, r0.startOffset)
+    return r.toString()
+  }
+
   function afterCursor() {
     const s = getSelection()
     const r0 = s.getRangeAt(0)
@@ -306,6 +318,24 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     r.selectNodeContents(editor)
     r.setStart(r0.endContainer, r0.endOffset)
     return r.toString()
+  }
+
+  function handleNewLine(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      const before = beforeCursor()
+
+      let [padding] = findPadding(before)
+      let newLinePadding = padding
+
+      // Preserve padding
+      if (newLinePadding.length > 0) {
+        preventDefault(event)
+        event.stopPropagation()
+        insert('\n' + newLinePadding)
+      } else {
+        legacyNewLineFix(event)
+      }
+    }
   }
 
   function legacyNewLineFix(event: KeyboardEvent) {
@@ -441,6 +471,17 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
       clearTimeout(timeout)
       timeout = window.setTimeout(() => cb(...args), wait)
     }
+  }
+
+  function findPadding(text: string): [string, number, number] {
+    // Find beginning of previous line.
+    let i = text.length - 1
+    while (i >= 0 && text[i] !== '\n') i--
+    i++
+    // Find padding of the line.
+    let j = i
+    while (j < text.length && /[ \t]/.test(text[j])) j++
+    return [text.substring(i, j) || '', i, j]
   }
 
   function toString() {
