@@ -16,8 +16,8 @@
   "scripts": {
     "lint": "tsc --noEmit && tsc --noEmit --project application/tsconfig.json && eslint --cache .",
     "build:core": "rm -rf dist/; tsc",
-    "build:app": "esbuild application/codejar-wiki.ts --bundle --minify --target=es2018 --format=esm --sourcemap --outfile=application/dist/codejar-wiki.min.js",
-    "build": "npm run build:core && npm run build:app",
+    "build:application": "esbuild application/codejar-wiki.ts --bundle --minify --target=es2018 --format=esm --sourcemap --outfile=application/dist/codejar-wiki.min.js",
+    "build": "npm run build:core && npm run build:application",
     "server": "npm run test:end; http-server .. -c-1 --cors &",
     "test:end": "pkill -x http-server"
   },
