@@ -8,7 +8,10 @@
 
 * Lightweight (**2.45 kB** only)
 * No dependencies
-* Async highlighting
+* Preserves indentation on a new line
+* Adds closing brackets, quotes
+* Indents line with the **Tab** key
+* **Async** highlighting
 * Supports **undo**/**redo**
 
 ## Getting Started
@@ -42,13 +45,18 @@ const jar = CodeJar(editor, highlight)
 
 Third argument to `CodeJar` is options:
 
+- `tab: string` replaces "tabs" with given string. Default: `\t`.
+  - Note: use css rule `tab-size` to customize size.
 - `spellcheck: boolean` enables spellchecking on the editor. Default `false`.
+- `catchTab: boolean` catches Tab keypress events and replaces it with `tab` string. Default: `true`.
+- `preserveIdent: boolean` keeps indent levels on new line. Default `true`.
+- `addClosing: boolean` automatically adds closing brackets, quotes. Default `true`.
 - `history` records history. Default `true`.
 - `window` window object. Default: `window`.
 
 ```js
 const options = {
-  spellcheck: true, // default is false
+  tab: ' '.repeat(4), // default is '\t'
 }
 
 const jar = CodeJar(editor, highlight, options)
@@ -69,7 +77,7 @@ jar.updateCode(`let foo = bar`)
 Updates the options.
 
 ```js
-jar.updateOptions({spellcheck: true})
+jar.updateOptions({tab: '\t'})
 ```
 
 ### `onUpdate((code: string) => void)`

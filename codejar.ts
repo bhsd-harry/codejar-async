@@ -5,6 +5,7 @@ type Options = {
   spellcheck: boolean
   catchTab: boolean
   preserveIdent: boolean
+  addClosing: boolean
   history: boolean
   window: typeof window
 }
@@ -29,6 +30,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     spellcheck: false,
     catchTab: true,
     preserveIdent: true,
+    addClosing: true,
     history: true,
     window: globalWindow,
     ...opt,
@@ -123,6 +125,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     if (options.preserveIdent) handleNewLine(event)
     else legacyNewLineFix(event)
     if (options.catchTab) handleTabCharacters(event)
+    if (options.addClosing) handleSelfClosingCharacters(event)
     if (options.history) {
       handleUndoRedo(event)
       if (shouldRecord(event) && !recording) {
@@ -357,6 +360,21 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
       } else {
         insert('\n')
       }
+    }
+  }
+
+  function handleSelfClosingCharacters(event: KeyboardEvent) {
+    const open = `([{'"`
+    const close = `)]}'"`
+    if (open.includes(event.key)) {
+      preventDefault(event)
+      const pos = save()
+      const wrapText = pos.start == pos.end ? '' : getSelection().toString()
+      const text = event.key + wrapText + close[open.indexOf(event.key)]
+      insert(text)
+      pos.start++
+      pos.end++
+      restore(pos)
     }
   }
 

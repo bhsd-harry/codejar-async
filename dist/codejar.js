@@ -5,6 +5,7 @@ export function CodeJar(editor, highlight, opt = {}) {
         spellcheck: false,
         catchTab: true,
         preserveIdent: true,
+        addClosing: true,
         history: true,
         window: globalWindow,
         ...opt,
@@ -93,6 +94,8 @@ export function CodeJar(editor, highlight, opt = {}) {
             legacyNewLineFix(event);
         if (options.catchTab)
             handleTabCharacters(event);
+        if (options.addClosing)
+            handleSelfClosingCharacters(event);
         if (options.history) {
             handleUndoRedo(event);
             if (shouldRecord(event) && !recording) {
@@ -315,6 +318,20 @@ export function CodeJar(editor, highlight, opt = {}) {
             else {
                 insert('\n');
             }
+        }
+    }
+    function handleSelfClosingCharacters(event) {
+        const open = `([{'"`;
+        const close = `)]}'"`;
+        if (open.includes(event.key)) {
+            preventDefault(event);
+            const pos = save();
+            const wrapText = pos.start == pos.end ? '' : getSelection().toString();
+            const text = event.key + wrapText + close[open.indexOf(event.key)];
+            insert(text);
+            pos.start++;
+            pos.end++;
+            restore(pos);
         }
     }
     function handleTabCharacters(event) {
