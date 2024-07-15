@@ -90,6 +90,16 @@ jar.onUpdate(code => {
 })
 ```
 
+### `onHighlight((editor: HTMLElement) => void)`
+
+Calls callback on code highlighted.
+
+```js
+jar.onHighlight(editor => {
+  console.log(editor.innerHTML)
+})
+```
+
 ### `toString(): string`
 
 Return current code.

@@ -17,6 +17,7 @@ export function CodeJar(editor, highlight, opt = {}) {
     let at = -1;
     let focus = false;
     let onUpdate = () => void 0;
+    let onHighlight = () => void 0;
     let prev; // code content prior keydown event
     editor.setAttribute('contenteditable', 'plaintext-only');
     editor.setAttribute('spellcheck', options.spellcheck ? 'true' : 'false');
@@ -39,6 +40,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             running = false;
             const pos = save();
             editor.innerHTML = html;
+            onHighlight(editor);
             restore(pos);
             recordHistory();
             return;
@@ -504,6 +506,9 @@ export function CodeJar(editor, highlight, opt = {}) {
         },
         onUpdate(callback) {
             onUpdate = callback;
+        },
+        onHighlight(callback) {
+            onHighlight = callback;
         },
         toString,
         save,

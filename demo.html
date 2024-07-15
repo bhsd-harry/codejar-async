@@ -5,7 +5,6 @@
   <title>CodeJar 🍯</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
   <link href="/wikiparser-node/extensions/ui.css" rel="stylesheet">
-  <link href="https://testingcf.jsdelivr.net/npm/codejar-linenumbers/es/codejar-linenumbers.min.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -24,48 +23,38 @@
       padding: 20px;
     }
 
-    .editor {
-      background: #fff;
+    .wikiparser {
       border-radius: 6px;
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
       font-family: "Source Code Pro", monospace;
       font-size: 14px;
-      font-weight: 400;
-      height: 450px;
       letter-spacing: normal;
       line-height: 20px;
-      padding: 10px;
       tab-size: 4;
     }
   </style>
 </head>
 <body>
 <main>
-  <div class="editor wpb-root" data-manual data-gramm="false"></div>
+  <textarea style="height:450px"></textarea>
 </main>
+<script src="/wikiparser-node/extensions/dist/base.js"></script>
 <script type="module">
   import {CodeJar} from './dist/codejar.js'
-  import {withLineNumbers} from './dist/codejar-linenumbers.js'
-  const editor = document.querySelector('.editor')
+  window.CodeJar = CodeJar
 
-  const highlight = async ele => {
-    return (await wikiparse.print(ele.textContent)).map(([,, printed]) => printed).join('')
-  }
+  await import('/wikiparser-node/extensions/dist/codejar.js')
 
   const config = await (await fetch('/wikiparser-node/config/default.json')).json();
   wikiparse.setConfig(config);
 
-  const jar = CodeJar(editor, withLineNumbers(highlight), {
-    spellcheck: true,
-  })
+  const jar = wikiparse.codejar(document.querySelector('textarea'), false, true)
+  window.jar = jar
 
   jar.updateCode(localStorage.getItem('code'))
   jar.onUpdate(code => {
     localStorage.setItem('code', code)
   })
-
-  window.jar = jar
 </script>
-<script src="/wikiparser-node/extensions/dist/base.js"></script>
 </body>
 </html>

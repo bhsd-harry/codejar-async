@@ -44,6 +44,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
   let at = -1
   let focus = false
   let onUpdate: (code: string) => void | undefined = () => void 0
+  let onHighlight: (e: HTMLElement) => void | undefined = () => void 0
   let prev: string // code content prior keydown event
 
   editor.setAttribute('contenteditable', 'plaintext-only')
@@ -69,6 +70,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
       running = false
       const pos = save()
       editor.innerHTML = html
+      onHighlight(editor)
       restore(pos)
       recordHistory()
       return
@@ -553,6 +555,9 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     },
     onUpdate(callback: (code: string) => void) {
       onUpdate = callback
+    },
+    onHighlight(callback: (e: HTMLElement) => void) {
+      onHighlight = callback
     },
     toString,
     save,
