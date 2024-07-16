@@ -1,22 +1,24 @@
 <p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar.svg" width="72"></a></p>
 <h3 align="center">CodeJar – an embeddable code editor for the browser</h3>
-<p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar/screenshot.png" width="709"></a></p>
 
 [![npm](https://img.shields.io/npm/v/codejar-async?color=brightgreen)](https://www.npmjs.com/package/codejar-async)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/codejar-async?label=size)](https://bundlephobia.com/result?p=codejar-async)
+
+**CodeJar-Async** is a fork of [CodeJar](https://medv.io/codejar/) with async highlighting support.
 
 ## Features
 
-* Lightweight (**2.45 kB** only)
+* Lightweight (**2.5 kB** only)
 * No dependencies
 * Preserves indentation on a new line
 * Adds closing brackets, quotes
 * Indents line with the **Tab** key
-* **Async** highlighting
 * Supports **undo**/**redo**
+* **Async** highlighting (${\color{red}NEW}$)$\textcolor{red}{\textsf{NEW}}$
 
 ## Getting Started
 
-Install CodeJar 🍯 &nbsp; via npm:
+Install CodeJar-Async 🍯 &nbsp; via npm:
 
 ```bash
 npm i codejar-async
@@ -31,13 +33,12 @@ Create an element and init the CodeJar 🍯:
 </script>
 ```
 
-Second argument to `CodeJar` is a highlighting function (like Prism.js, highlight.js):
+Second argument to `CodeJar` is an async highlighting function (like Prism.js, highlight.js):
 
 ```ts
-const highlight = async (editor: HTMLElement) => {
+const highlight = async (editor: HTMLElement): string => {
   const code = editor.textContent
-  code = code.replace('foo', '<span style="color: red">foo</span>')
-  return code
+  return code.replace('foo', '<span style="color: red">foo</span>')
 }
 
 const jar = CodeJar(editor, highlight)
@@ -92,7 +93,7 @@ jar.onUpdate(code => {
 
 ### `onHighlight((editor: HTMLElement) => void)`
 
-Calls callback on code highlighted.
+Calls callback after the async highlighting is done.
 
 ```js
 jar.onHighlight(editor => {
