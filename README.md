@@ -14,7 +14,7 @@
 * Adds closing brackets, quotes
 * Indents line with the **Tab** key
 * Supports **undo**/**redo**
-* **Async** highlighting (${\color{red}NEW}$)$\textcolor{red}{\textsf{NEW}}$
+* **Async** highlighting (${\color{red}NEW}$)
 
 ## Getting Started
 
