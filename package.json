@@ -10,12 +10,12 @@
   ],
   "scripts": {
     "lint": "tsc --noEmit && eslint .",
-    "build": "rm -rf dist/; tsc",
+    "build": "rm -rf dist/; tsc && eslint --no-eslintrc -c .eslintrc.dist.cjs dist/*.js",
     "server": "npm run test:end; http-server .. -c-1 --cors &",
     "test:end": "pkill -x http-server"
   },
   "devDependencies": {
-    "@bhsd/common": "^0.0.0"
+    "@bhsd/common": "^0.1.1"
   },
   "license": "MIT",
   "repository": {
