@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ES2019",
     "lib": [
-      "ES2018",
+      "ES2019",
       "DOM"
     ],
     "module": "NodeNext",
@@ -10,9 +10,9 @@
     "strict": true,
     "declaration": true,
     "noUnusedLocals": true,
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": [
     "./*.ts"
-  ],
+  ]
 }
