@@ -15,7 +15,7 @@
     "test:end": "pkill -x http-server"
   },
   "devDependencies": {
-    "@bhsd/common": "^0.1.1"
+    "@bhsd/common": "^0.4.4"
   },
   "license": "MIT",
   "repository": {
