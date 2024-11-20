@@ -1,18 +1,18 @@
 {
-  "compilerOptions": {
-    "target": "ES2019",
-    "lib": [
-      "ES2019",
-      "DOM"
-    ],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "declaration": true,
-    "noUnusedLocals": true,
-    "outDir": "./dist"
-  },
-  "include": [
-    "./*.ts"
-  ]
+	"compilerOptions": {
+		"target": "ES2019",
+		"lib": [
+			"ES2019",
+			"DOM"
+		],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"strict": true,
+		"declaration": true,
+		"noUnusedLocals": true,
+		"outDir": "./dist"
+	},
+	"include": [
+		"./*.ts"
+	]
 }

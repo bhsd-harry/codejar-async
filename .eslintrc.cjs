@@ -62,6 +62,10 @@ module.exports = {
 			rules: {
 				...json.rules,
 				'comma-dangle': 0,
+				'@stylistic/indent': [
+					2,
+					'tab',
+				],
 			},
 		},
 		{
