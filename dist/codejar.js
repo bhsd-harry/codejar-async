@@ -8,6 +8,10 @@ export function CodeJar(editor, highlight, opt = {}) {
         addClosing: true,
         history: true,
         window: globalWindow,
+        autoclose: {
+            open: `([{'"`,
+            close: `)]}'"`,
+        },
         ...opt,
     };
     const window = options.window;
@@ -323,13 +327,14 @@ export function CodeJar(editor, highlight, opt = {}) {
         }
     }
     function handleSelfClosingCharacters(event) {
-        const open = `([{'"`;
-        const close = `)]}'"`;
+        var _a;
+        const open = options.autoclose.open;
+        const close = options.autoclose.close;
         if (open.includes(event.key)) {
             preventDefault(event);
             const pos = save();
             const wrapText = pos.start == pos.end ? '' : getSelection().toString();
-            const text = event.key + wrapText + close[open.indexOf(event.key)];
+            const text = event.key + wrapText + ((_a = close[open.indexOf(event.key)]) !== null && _a !== void 0 ? _a : "");
             insert(text);
             pos.start++;
             pos.end++;

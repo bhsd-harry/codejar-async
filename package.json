@@ -1,7 +1,7 @@
 {
 	"name": "codejar-async",
 	"description": "An embeddable code editor for the browser",
-	"version": "4.2.4",
+	"version": "4.2.5",
 	"type": "module",
 	"main": "./dist/codejar.js",
 	"types": "./dist/codejar.d.ts",
