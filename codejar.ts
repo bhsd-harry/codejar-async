@@ -8,6 +8,10 @@ type Options = {
   addClosing: boolean
   history: boolean
   window: typeof window
+  autoclose: {
+    open: string
+    close: string
+  }
 }
 
 type HistoryRecord = {
@@ -33,6 +37,10 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
     addClosing: true,
     history: true,
     window: globalWindow,
+    autoclose: {
+      open: `([{'"`,
+      close: `)]}'"`,
+    },
     ...opt,
   }
 
@@ -366,13 +374,13 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Prom
   }
 
   function handleSelfClosingCharacters(event: KeyboardEvent) {
-    const open = `([{'"`
-    const close = `)]}'"`
+    const open = options.autoclose.open
+    const close = options.autoclose.close
     if (open.includes(event.key)) {
       preventDefault(event)
       const pos = save()
       const wrapText = pos.start == pos.end ? '' : getSelection().toString()
-      const text = event.key + wrapText + close[open.indexOf(event.key)]
+      const text = event.key + wrapText + (close[open.indexOf(event.key)] ?? "")
       insert(text)
       pos.start++
       pos.end++

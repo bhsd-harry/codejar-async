@@ -54,10 +54,17 @@ Third argument to `CodeJar` is options:
 - `addClosing: boolean` automatically adds closing brackets, quotes. Default `true`.
 - `history` records history. Default `true`.
 - `window` window object. Default: `window`.
+- `autoclose` object
+  - `open string` characters that triggers the autoclose function 
+  - `close string` characters that correspond to the opening ones and close the object.
 
 ```js
 const options = {
   tab: ' '.repeat(4), // default is '\t'
+  autoclose: { 
+    open: `([{*`, // default is `([{'"`
+    close: `)]}*` // default is `)]}'"`
+  }
 }
 
 const jar = CodeJar(editor, highlight, options)
