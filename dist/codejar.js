@@ -1,4 +1,4 @@
-const globalWindow = window;
+const globalWindow = globalThis;
 export function CodeJar(editor, highlight, opt = {}) {
     const options = {
         tab: '\t',

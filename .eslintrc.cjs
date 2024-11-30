@@ -76,14 +76,6 @@ module.exports = {
 				'@typescript-eslint/ban-ts-comment': 0,
 				'@typescript-eslint/consistent-type-definitions': 0,
 				'@typescript-eslint/explicit-function-return-type': 0,
-				'@typescript-eslint/member-delimiter-style': [
-					2,
-					{
-						multiline: {
-							delimiter: 'none',
-						},
-					},
-				],
 				'@typescript-eslint/no-explicit-any': 0,
 				'@typescript-eslint/no-invalid-void-type': 0,
 				'@typescript-eslint/no-redeclare': 0,
@@ -93,7 +85,6 @@ module.exports = {
 						builtinGlobals: false,
 					},
 				],
-				'@typescript-eslint/no-throw-literal': 0,
 				'@typescript-eslint/no-unnecessary-condition': 0,
 				'@typescript-eslint/no-unsafe-argument': 0,
 				'@typescript-eslint/no-unsafe-member-access': 0,
@@ -104,7 +95,16 @@ module.exports = {
 						argsIgnorePattern: '^_',
 					},
 				],
+				'@typescript-eslint/only-throw-error': 0,
 				'@typescript-eslint/prefer-destructuring': 0,
+				'@stylistic/member-delimiter-style': [
+					2,
+					{
+						multiline: {
+							delimiter: 'none',
+						},
+					},
+				],
 			},
 		},
 		{

@@ -1,4 +1,4 @@
-const globalWindow = window
+const globalWindow = globalThis as Window & typeof globalThis
 
 type Options = {
   tab: string
@@ -7,7 +7,7 @@ type Options = {
   preserveIdent: boolean
   addClosing: boolean
   history: boolean
-  window: typeof window
+  window: Window
   autoclose: {
     open: string
     close: string
