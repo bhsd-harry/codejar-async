@@ -1,7 +1,11 @@
 {
 	"name": "codejar-async",
 	"description": "An embeddable code editor for the browser",
-	"version": "4.2.5",
+	"keywords": [
+		"codejar",
+		"code-editor"
+	],
+	"version": "4.2.6",
 	"type": "module",
 	"main": "./dist/codejar.js",
 	"types": "./dist/codejar.d.ts",
@@ -40,12 +44,12 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bhsd-harry/codejar.git"
+		"url": "git+https://github.com/bhsd-harry/codejar-async.git"
 	},
 	"contributors": [
 		"Anton Medvedev <anton@medv.io>",
 		"Julian Poemp",
 		"Bhsd"
 	],
-	"homepage": "https://medv.io/codejar/"
+	"homepage": "https://github.com/bhsd-harry/codejar-async#readme"
 }
