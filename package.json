@@ -16,11 +16,11 @@
 		"lint:ts": "tsc --noEmit && eslint .",
 		"lint": "npm run lint:ts",
 		"build": "rm -rf dist/; tsc && eslint --no-eslintrc -c .eslintrc.dist.cjs dist/*.js",
-		"server": "npm run test:end; http-server .. -c-1 --cors &",
+		"server": "npm run test:end; http-server .. -c-1 --cors -s &",
 		"test:end": "pkill -x http-server"
 	},
 	"devDependencies": {
-		"@bhsd/common": "^0.5.0",
+		"@bhsd/common": "^0.6.1",
 		"@stylistic/eslint-plugin": "^2.11.0",
 		"@stylistic/stylelint-plugin": "^3.1.1",
 		"@types/mocha": "^10.0.10",

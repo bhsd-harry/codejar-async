@@ -2,7 +2,7 @@
 'use strict'
 
 const config = require('@bhsd/common/eslintrc.browser.cjs')
-const {rules, overrides} = config
+const {plugins, rules, overrides} = config
 const [
 	json,
 	ts,
@@ -16,7 +16,7 @@ for (const key in rules) {
 
 module.exports = {
 	...config,
-	plugins: config.plugins.filter(plugin => plugin !== 'jsdoc'),
+	plugins: plugins.filter(plugin => plugin !== 'jsdoc'),
 	rules: {
 		...rules,
 		'arrow-body-style': 0,
