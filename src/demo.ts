@@ -5,7 +5,6 @@ import type {Config} from 'wikiparser-node'
 Object.assign(globalThis, {CodeJar});
 
 (async () => {
-  // @ts-expect-error external module
   await import('/wikiparser-node/extensions/dist/codejar.js') // eslint-disable-line es-x/no-dynamic-import
 
   const config: Config = await (await fetch('/wikiparser-node/config/default.json')).json()
