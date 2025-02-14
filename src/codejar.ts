@@ -28,7 +28,11 @@ export type Position = {
 
 export type CodeJar = ReturnType<typeof CodeJar>
 
-export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement) => Promise<string>, opt: Partial<Options> = {}) {
+export function CodeJar(
+  editor: HTMLElement,
+  highlight: (e: HTMLElement) => Promise<string>,
+  opt: Partial<Options> = {},
+) {
   const options: Options = {
     tab: '\t',
     spellcheck: false,
