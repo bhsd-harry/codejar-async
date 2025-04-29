@@ -64,7 +64,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             void print();
         }
     };
-    let isLegacy = false; // true if plaintext-only is not supported
+    let isLegacy = navigator.userAgent.includes('Firefox'); // true if plaintext-only is not supported
     if (editor.contentEditable !== 'plaintext-only')
         isLegacy = true;
     if (isLegacy)
