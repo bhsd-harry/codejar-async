@@ -51,6 +51,8 @@ module.exports = {
 			'never',
 		],
 		'regexp/no-useless-escape': 0,
+		'regexp/prefer-d': 0,
+		'regexp/prefer-regexp-exec': 0,
 		'unicorn/consistent-function-scoping': 0,
 		'unicorn/no-lonely-if': 0,
 		'unicorn/no-negated-condition': 0,
