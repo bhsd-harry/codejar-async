@@ -45,7 +45,6 @@ module.exports = {
 		'@stylistic/max-len': 0,
 		'@stylistic/no-extra-parens': 0,
 		'@stylistic/one-var-declaration-per-line': 0,
-		'@stylistic/quotes': 0,
 		'@stylistic/semi': [
 			2,
 			'never',

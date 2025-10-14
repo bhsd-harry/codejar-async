@@ -110,9 +110,9 @@ export function CodeJar(
     ? parseInt(matchFirefoxVersion[1])
     : 0
   let isLegacy = false // true if plaintext-only is not supported
-  if (editor.contentEditable !== "plaintext-only" || firefoxVersion >= 136)
+  if (editor.contentEditable !== 'plaintext-only' || firefoxVersion >= 136)
     isLegacy = true
-  if (isLegacy) editor.setAttribute("contenteditable", "true")
+  if (isLegacy) editor.setAttribute('contenteditable', 'true')
 
   const debounceHighlight = debounce(() => {
     doHighlight()
@@ -288,8 +288,14 @@ export function CodeJar(
       current += len
     })
 
-    if (!startNode) startNode = editor, startOffset = editor.childNodes.length
-    if (!endNode) endNode = editor, endOffset = editor.childNodes.length
+    if (!startNode) {
+      startNode = editor
+      startOffset = editor.childNodes.length
+    }
+    if (!endNode) {
+      endNode = editor
+      endOffset = editor.childNodes.length
+    }
 
     // Flip back the selection
     if (pos.dir == '<-') {
@@ -390,7 +396,7 @@ export function CodeJar(
       preventDefault(event)
       const pos = save()
       const wrapText = pos.start == pos.end ? '' : getSelection().toString()
-      const text = event.key + wrapText + (close[open.indexOf(event.key)] ?? "")
+      const text = event.key + wrapText + (close[open.indexOf(event.key)] ?? '')
       insert(text)
       pos.start++
       pos.end++
