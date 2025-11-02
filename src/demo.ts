@@ -6,7 +6,7 @@ import type {} from 'wikiparser-node/extensions/typings.d.ts'
 Object.assign(globalThis, {CodeJar});
 
 (async () => {
-  await import('/wikiparser-node/extensions/dist/codejar.js') // eslint-disable-line es-x/no-dynamic-import
+  await import('/wikiparser-node/extensions/dist/codejar.js')
 
   const config: ConfigData = await (await fetch('/wikiparser-node/config/default.json')).json()
   wikiparse.setConfig(config)

@@ -2,7 +2,7 @@ import { CodeJar } from './codejar.js';
 // Must be global before importing `wikiparse.codejar`
 Object.assign(globalThis, { CodeJar });
 (async () => {
-    await import('/wikiparser-node/extensions/dist/codejar.js'); // eslint-disable-line es-x/no-dynamic-import
+    await import('/wikiparser-node/extensions/dist/codejar.js');
     const config = await (await fetch('/wikiparser-node/config/default.json')).json();
     wikiparse.setConfig(config);
     const jar = (await wikiparse.codejar)(document.querySelector('textarea'), false, true);
