@@ -1,6 +1,6 @@
 import {CodeJar} from './codejar.js'
 import type {ConfigData} from 'wikiparser-node'
-import type {} from 'wikiparser-node/extensions/typings.d.ts'
+import type {} from 'wikiparser-node/dist/extensions/typings.d.ts'
 
 // Must be global before importing `wikiparse.codejar`
 Object.assign(globalThis, {CodeJar});

@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2019",
 		"lib": [
-			"ES2019",
+			"ESNext",
 			"DOM"
 		],
 		"module": "NodeNext",
@@ -11,6 +11,7 @@
 		"declaration": true,
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
+		"rootDir": "src",
 		"outDir": "./dist"
 	},
 	"include": [

@@ -1,4 +1,4 @@
 /dist/*.d.ts
 /.vscode/
-.markdownlint.json
+/package-lock.json
 .eslintcache

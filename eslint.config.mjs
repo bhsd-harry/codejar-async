@@ -1,8 +1,9 @@
-import {browser, extend} from '@bhsd/code-standard'
+import {browser, extend} from '@bhsd/code-standard';
 
 export default extend(
 	browser,
 	{
+		files: ['**/*.ts'],
 		rules: {
 			'arrow-body-style': 0,
 			'consistent-return': 0,
@@ -20,6 +21,7 @@ export default extend(
 			'no-underscore-dangle': 0,
 			'no-useless-escape': 0,
 			'no-void': 0,
+			'prefer-const': 0,
 			'prefer-template': 0,
 			'require-unicode-regexp': 0,
 			'@stylistic/indent': [
@@ -28,6 +30,14 @@ export default extend(
 			],
 			'@stylistic/indent-binary-ops': 0,
 			'@stylistic/max-len': 0,
+			'@stylistic/member-delimiter-style': [
+				2,
+				{
+					multiline: {
+						delimiter: 'none',
+					},
+				},
+			],
 			'@stylistic/no-extra-parens': 0,
 			'@stylistic/one-var-declaration-per-line': 0,
 			'@stylistic/semi': [
@@ -41,12 +51,6 @@ export default extend(
 			'unicorn/no-lonely-if': 0,
 			'unicorn/no-negated-condition': 0,
 			'unicorn/prefer-code-point': 0,
-		},
-	},
-	{
-		files: ['**/*.ts'],
-		rules: {
-			'prefer-const': 0,
 			'@typescript-eslint/ban-ts-comment': 0,
 			'@typescript-eslint/consistent-type-definitions': 0,
 			'@typescript-eslint/explicit-function-return-type': 0,
@@ -71,27 +75,6 @@ export default extend(
 			],
 			'@typescript-eslint/only-throw-error': 0,
 			'@typescript-eslint/prefer-destructuring': 0,
-			'@stylistic/member-delimiter-style': [
-				2,
-				{
-					multiline: {
-						delimiter: 'none',
-					},
-				},
-			],
 		},
 	},
-	{
-		files: [
-			'**/*.json',
-			'*.cjs',
-			'*.mjs',
-		],
-		rules: {
-			'@stylistic/indent': [
-				2,
-				'tab',
-			],
-		},
-	},
-)
+);

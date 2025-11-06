@@ -1,4 +1,4 @@
-<p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar.svg" width="72"></a></p>
+<p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar.svg" width="72" alt="CodeJar"></a></p>
 <h3 align="center">CodeJar – an embeddable code editor for the browser</h3>
 
 [![npm](https://img.shields.io/npm/v/codejar-async?color=brightgreen)](https://www.npmjs.com/package/codejar-async)
@@ -8,13 +8,13 @@
 
 ## Features
 
-* Lightweight (**2.5 kB** only)
-* No dependencies
-* Preserves indentation on a new line
-* Adds closing brackets, quotes
-* Indents line with the **Tab** key
-* Supports **undo**/**redo**
-* **Async** highlighting (${\color{red}NEW}$)
+- Lightweight (**2.6 kB** only)
+- No dependencies
+- Preserves indentation on a new line
+- Adds closing brackets, quotes
+- Indents line with the **Tab** key
+- Supports **undo**/**redo**
+- **Async** highlighting (${\color{red}NEW}$)
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ Create an element and init the CodeJar 🍯:
 ```html
 <div class="editor"></div>
 <script>
-  let jar = CodeJar(document.querySelector('.editor'), highlight)
+	let jar = CodeJar(document.querySelector('.editor'), highlight)
 </script>
 ```
 
@@ -37,8 +37,8 @@ Second argument to `CodeJar` is an async highlighting function (like Prism.js, h
 
 ```ts
 const highlight = async (editor: HTMLElement): string => {
-  const code = editor.textContent
-  return code.replace('foo', '<span style="color: red">foo</span>')
+	const code = editor.textContent
+	return code.replace('foo', '<span style="color: red">foo</span>')
 }
 
 const jar = CodeJar(editor, highlight)
@@ -47,7 +47,7 @@ const jar = CodeJar(editor, highlight)
 Third argument to `CodeJar` is options:
 
 - `tab: string` replaces "tabs" with given string. Default: `\t`.
-  - Note: use css rule `tab-size` to customize size.
+	- Note: use css rule `tab-size` to customize size.
 - `spellcheck: boolean` enables spellchecking on the editor. Default `false`.
 - `catchTab: boolean` catches Tab keypress events and replaces it with `tab` string. Default: `true`.
 - `preserveIdent: boolean` keeps indent levels on new line. Default `true`.
@@ -55,16 +55,16 @@ Third argument to `CodeJar` is options:
 - `history` records history. Default `true`.
 - `window` window object. Default: `window`.
 - `autoclose` object
-  - `open string` characters that triggers the autoclose function 
-  - `close string` characters that correspond to the opening ones and close the object.
+	- `open string` characters that triggers the autoclose function
+	- `close string` characters that correspond to the opening ones and close the object.
 
 ```js
 const options = {
-  tab: ' '.repeat(4), // default is '\t'
-  autoclose: { 
-    open: `([{*`, // default is `([{'"`
-    close: `)]}*` // default is `)]}'"`
-  }
+	tab: ' '.repeat(4), // default is '\t'
+	autoclose: { 
+		open: `([{*`, // default is `([{'"`
+		close: `)]}*` // default is `)]}'"`
+	}
 }
 
 const jar = CodeJar(editor, highlight, options)
@@ -94,7 +94,7 @@ Calls callback on code updates.
 
 ```js
 jar.onUpdate(code => {
-  console.log(code)
+	console.log(code)
 })
 ```
 
@@ -104,7 +104,7 @@ Calls callback after the async highlighting is done.
 
 ```js
 jar.onHighlight(editor => {
-  console.log(editor.innerHTML)
+	console.log(editor.innerHTML)
 })
 ```
 

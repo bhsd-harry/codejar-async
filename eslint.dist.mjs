@@ -1,3 +1,3 @@
-import {dist} from '@bhsd/code-standard'
+import {dist} from '@bhsd/code-standard';
 
-export default dist
+export default dist;

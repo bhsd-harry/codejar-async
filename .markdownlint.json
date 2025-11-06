@@ -1,0 +1,12 @@
+{
+	"extends": "@bhsd/code-standard/markdownlint",
+	"no-inline-html": {
+		"allowed_elements": [
+			"a",
+			"h3",
+			"img",
+			"p"
+		]
+	},
+	"first-line-h1": false
+}
