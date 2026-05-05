@@ -1,8 +1,7 @@
 <p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar.svg" width="72" alt="CodeJar"></a></p>
 <h3 align="center">CodeJar – an embeddable code editor for the browser</h3>
 
-[![npm](https://img.shields.io/npm/v/codejar-async?color=brightgreen)](https://www.npmjs.com/package/codejar-async)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/codejar-async?label=size)](https://bundlephobia.com/result?p=codejar-async)
+[![npm version](https://badge.fury.io/js/codejar-async.svg)](https://www.npmjs.com/package/codejar-async)
 
 **CodeJar-Async** is a fork of [CodeJar](https://medv.io/codejar/) with async highlighting support.
 

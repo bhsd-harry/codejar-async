@@ -478,7 +478,7 @@ export function CodeJar(
     if (event.defaultPrevented) return
     preventDefault(event)
     const originalEvent = (event as any).originalEvent ?? event
-    const text = originalEvent.clipboardData.getData('text/plain').replace(/\r\n?/g, '\n')
+    const text = originalEvent.clipboardData.getData('text/plain').replaceAll(/\r\n?/g, '\n')
     insert(text)
     doHighlight()
   }
@@ -528,11 +528,11 @@ export function CodeJar(
 
   function insert(text: string) {
     text = text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;')
     document.execCommand('insertHTML', false, text)
   }
 
