@@ -1,9 +1,9 @@
-import {CodeJar} from './codejar.js'
-import type {ConfigData} from 'wikiparser-node'
+import { CodeJar } from './codejar.js'
+import type { ConfigData } from 'wikiparser-node'
 import type {} from 'wikiparser-node/dist/extensions/typings.d.ts'
 
 // Must be global before importing `wikiparse.codejar`
-Object.assign(globalThis, {CodeJar});
+Object.assign(globalThis, { CodeJar });
 
 (async () => {
   await import('/wikiparser-node/extensions/dist/codejar.js')
@@ -12,7 +12,7 @@ Object.assign(globalThis, {CodeJar});
   wikiparse.setConfig(config)
 
   const jar = (await wikiparse.codejar)!(document.querySelector('textarea')!, false, true)
-  Object.assign(globalThis, {jar})
+  Object.assign(globalThis, { jar })
 
   jar.updateCode(localStorage.getItem('code')!)
   jar.onUpdate((code: string) => {

@@ -1,4 +1,4 @@
-const globalWindow = globalThis as Window & typeof globalThis
+const globalWindow = window
 
 type Options = {
   tab: string
@@ -97,7 +97,8 @@ export function CodeJar(
    * - If there is a running highlight, return the result of that highlight
    * - Otherwise start a new highlight
    */
-  const doHighlight = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const doHighlight = (editor: HTMLElement, pos?: Position) => {
     if (!running) {
       running = true
       void print()
@@ -115,7 +116,7 @@ export function CodeJar(
   if (isLegacy) editor.setAttribute('contenteditable', 'true')
 
   const debounceHighlight = debounce(() => {
-    doHighlight()
+    doHighlight(editor)
   }, 30)
 
   let recording = false
@@ -189,9 +190,9 @@ export function CodeJar(
 
   function save(): Position {
     const s = getSelection()
-    const pos: Position = {start: 0, end: 0, dir: undefined}
+    const pos: Position = { start: 0, end: 0, dir: undefined }
 
-    let {anchorNode, anchorOffset, focusNode, focusOffset} = s
+    let { anchorNode, anchorOffset, focusNode, focusOffset } = s
     if (!anchorNode || !focusNode) throw 'error1'
 
     // If the anchor and focus are the editor element, return either a full
@@ -218,7 +219,7 @@ export function CodeJar(
       focusOffset = 0
     }
 
-    visit(el => {
+    visit(editor, el => {
       if (el === anchorNode && el === focusNode) {
         pos.start += anchorOffset
         pos.end += focusOffset
@@ -263,14 +264,14 @@ export function CodeJar(
 
     // Flip start and end if the direction reversed
     if (pos.dir == '<-') {
-      const {start, end} = pos
+      const { start, end } = pos
       pos.start = end
       pos.end = start
     }
 
     let current = 0
 
-    visit(el => {
+    visit(editor, el => {
       if (el.nodeType !== Node.TEXT_NODE) return
 
       const len = (el.nodeValue || '').length
@@ -414,7 +415,7 @@ export function CodeJar(
           const pos = save()
           // Remove full length tab or just remaining padding
           const len = Math.min(options.tab.length, padding.length)
-          restore({start, end: start + len})
+          restore({ start, end: start + len })
           document.execCommand('delete')
           pos.start -= len
           pos.end -= len
@@ -463,8 +464,9 @@ export function CodeJar(
         && lastRecord.pos.end === pos.end) return
     }
 
-    if (lastRecord?.text !== text) at++
-    history[at] = {text, html, pos}
+    if (lastRecord?.text !== text)
+      at++
+    history[at] = { text, html, pos }
     history.splice(at + 1)
 
     const maxHistory = 300
@@ -478,9 +480,9 @@ export function CodeJar(
     if (event.defaultPrevented) return
     preventDefault(event)
     const originalEvent = (event as any).originalEvent ?? event
-    const text = originalEvent.clipboardData.getData('text/plain').replaceAll(/\r\n?/g, '\n')
+    const text = originalEvent.clipboardData.getData('text/plain').replace(/\r\n?/g, '\n')
     insert(text)
-    doHighlight()
+    doHighlight(editor)
   }
 
   function handleCut(event: ClipboardEvent) {
@@ -488,11 +490,11 @@ export function CodeJar(
     const originalEvent = (event as any).originalEvent ?? event
     originalEvent.clipboardData.setData('text/plain', selection.toString())
     document.execCommand('delete')
-    doHighlight()
+    doHighlight(editor)
     preventDefault(event)
   }
 
-  function visit(visitor: (el: Node) => 'stop' | undefined) {
+  function visit(editor: HTMLElement, visitor: (el: Node) => 'stop' | undefined) {
     const queue: Node[] = []
     if (editor.firstChild) queue.push(editor.firstChild)
     let el = queue.pop()
@@ -528,11 +530,11 @@ export function CodeJar(
 
   function insert(text: string) {
     text = text
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
     document.execCommand('insertHTML', false, text)
   }
 
@@ -574,7 +576,7 @@ export function CodeJar(
     },
     updateCode(code: string, callOnUpdate: boolean = true) {
       editor.textContent = code
-      doHighlight()
+      doHighlight(editor)
       callOnUpdate && onUpdate(code)
     },
     onUpdate(callback: (code: string) => void) {

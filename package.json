@@ -15,7 +15,7 @@
 	"scripts": {
 		"ls": "npm i --package-lock-only && npm ls --package-lock-only --all --omit=dev",
 		"lint:ts": "tsc --noEmit && eslint --cache .",
-		"lint:css": "stylelint *.css",
+		"lint:css": "stylelint --cache *.css",
 		"lint:md": "markdownlint-cli2 '**/*.md'",
 		"lint": "npm run lint:ts && npm run lint:css && npm run lint:md",
 		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.mjs dist/*.js",
@@ -23,17 +23,13 @@
 		"test:end": "pkill -x http-server"
 	},
 	"devDependencies": {
-		"@bhsd/code-standard": "^2.5.0",
-		"@stylistic/stylelint-plugin": "^5.1.0",
-		"@typescript-eslint/parser": "^8.59.4",
-		"eslint": "^10.4.0",
+		"@bhsd/code-standard": "^2.7.0",
+		"eslint": "^10.4.1",
 		"http-server": "^14.1.1",
 		"markdownlint-cli2": "^0.22.1",
-		"stylelint": "^17.12.0",
-		"stylelint-config-recommended": "^18.0.0",
-		"stylelint-plugin-use-baseline": "^1.4.2",
+		"stylelint": "^17.13.0",
 		"typescript": "^6.0.3",
-		"wikiparser-node": "^1.40.0"
+		"wikiparser-node": "^1.44.0"
 	},
 	"license": "MIT",
 	"repository": {

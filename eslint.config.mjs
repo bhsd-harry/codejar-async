@@ -39,6 +39,10 @@ export default extend(
 				},
 			],
 			'@stylistic/no-extra-parens': 0,
+			'@stylistic/object-curly-spacing': [
+				2,
+				'always',
+			],
 			'@stylistic/one-var-declaration-per-line': 0,
 			'@stylistic/semi': [
 				2,
@@ -51,6 +55,9 @@ export default extend(
 			'unicorn/no-lonely-if': 0,
 			'unicorn/no-negated-condition': 0,
 			'unicorn/prefer-code-point': 0,
+			'unicorn/prefer-global-this': 0,
+			'unicorn/prefer-keyboard-event-key': 0,
+			'unicorn/prefer-string-replace-all': 0,
 			'@typescript-eslint/ban-ts-comment': 0,
 			'@typescript-eslint/consistent-type-definitions': 0,
 			'@typescript-eslint/explicit-function-return-type': 0,
@@ -61,6 +68,7 @@ export default extend(
 				2,
 				{
 					builtinGlobals: false,
+					allow: ['editor'],
 				},
 			],
 			'@typescript-eslint/no-unnecessary-condition': 0,
