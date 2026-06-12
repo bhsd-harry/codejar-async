@@ -18,13 +18,13 @@
 		"lint:css": "stylelint --cache *.css",
 		"lint:md": "markdownlint-cli2 '**/*.md'",
 		"lint": "npm run lint:ts && npm run lint:css && npm run lint:md",
-		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.mjs dist/*.js",
+		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.js dist/*.js",
 		"server": "npm run test:end; http-server .. -c-1 --cors -s &",
 		"test:end": "pkill -x http-server"
 	},
 	"devDependencies": {
-		"@bhsd/code-standard": "^2.7.0",
-		"eslint": "^10.4.1",
+		"@bhsd/code-standard": "^3.0.0",
+		"eslint": "^10.5.0",
 		"http-server": "^14.1.1",
 		"markdownlint-cli2": "^0.22.1",
 		"stylelint": "^17.13.0",
