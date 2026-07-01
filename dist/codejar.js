@@ -1,4 +1,4 @@
-const globalWindow = globalThis;
+const globalWindow = window;
 export function CodeJar(editor, highlight, opt = {}) {
     const options = {
         tab: '\t',
@@ -49,7 +49,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             recordHistory();
             return;
         }
-        return print();
+        return print(); // eslint-disable-line unicorn/no-useless-recursion
     }
     /**
      * Submit a new text to be highlighted
@@ -58,7 +58,8 @@ export function CodeJar(editor, highlight, opt = {}) {
      * - If there is a running highlight, return the result of that highlight
      * - Otherwise start a new highlight
      */
-    const doHighlight = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const doHighlight = (editor, pos) => {
         if (!running) {
             running = true;
             void print();
@@ -74,7 +75,7 @@ export function CodeJar(editor, highlight, opt = {}) {
     if (isLegacy)
         editor.setAttribute('contenteditable', 'true');
     const debounceHighlight = debounce(() => {
-        doHighlight();
+        doHighlight(editor);
     }, 30);
     let recording = false;
     const shouldRecord = (event) => {
@@ -172,7 +173,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             focusNode = node;
             focusOffset = 0;
         }
-        visit(el => {
+        visit(editor, el => {
             if (el === anchorNode && el === focusNode) {
                 pos.start += anchorOffset;
                 pos.end += focusOffset;
@@ -225,7 +226,7 @@ export function CodeJar(editor, highlight, opt = {}) {
             pos.end = start;
         }
         let current = 0;
-        visit(el => {
+        visit(editor, el => {
             if (el.nodeType !== Node.TEXT_NODE)
                 return;
             const len = (el.nodeValue || '').length;
@@ -424,9 +425,9 @@ export function CodeJar(editor, highlight, opt = {}) {
             return;
         preventDefault(event);
         const originalEvent = (_a = event.originalEvent) !== null && _a !== void 0 ? _a : event;
-        const text = originalEvent.clipboardData.getData('text/plain').replaceAll(/\r\n?/g, '\n');
+        const text = originalEvent.clipboardData.getData('text/plain').replace(/\r\n?/g, '\n');
         insert(text);
-        doHighlight();
+        doHighlight(editor);
     }
     function handleCut(event) {
         var _a;
@@ -434,10 +435,10 @@ export function CodeJar(editor, highlight, opt = {}) {
         const originalEvent = (_a = event.originalEvent) !== null && _a !== void 0 ? _a : event;
         originalEvent.clipboardData.setData('text/plain', selection.toString());
         document.execCommand('delete');
-        doHighlight();
+        doHighlight(editor);
         preventDefault(event);
     }
-    function visit(visitor) {
+    function visit(editor, visitor) {
         const queue = [];
         if (editor.firstChild)
             queue.push(editor.firstChild);
@@ -472,11 +473,11 @@ export function CodeJar(editor, highlight, opt = {}) {
     }
     function insert(text) {
         text = text
-            .replaceAll('&', '&amp;')
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;')
-            .replaceAll('"', '&quot;')
-            .replaceAll("'", '&#039;');
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
         document.execCommand('insertHTML', false, text);
     }
     function debounce(cb, wait) {
@@ -514,7 +515,7 @@ export function CodeJar(editor, highlight, opt = {}) {
         },
         updateCode(code, callOnUpdate = true) {
             editor.textContent = code;
-            doHighlight();
+            doHighlight(editor);
             callOnUpdate && onUpdate(code);
         },
         onUpdate(callback) {

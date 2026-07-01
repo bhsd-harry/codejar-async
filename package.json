@@ -18,18 +18,18 @@
 		"lint:css": "stylelint --cache *.css",
 		"lint:md": "markdownlint-cli2 '**/*.md'",
 		"lint": "npm run lint:ts && npm run lint:css && npm run lint:md",
-		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.js dist/*.js",
+		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.js --no-inline-config dist/*.js",
 		"server": "npm run test:end; http-server .. -c-1 --cors -s &",
 		"test:end": "pkill -x http-server"
 	},
 	"devDependencies": {
-		"@bhsd/code-standard": "^3.0.0",
-		"eslint": "^10.5.0",
+		"@bhsd/code-standard": "^4.0.0",
+		"eslint": "^10.8.0",
 		"http-server": "^14.1.1",
-		"markdownlint-cli2": "^0.22.1",
-		"stylelint": "^17.13.0",
+		"markdownlint-cli2": "^0.23.2",
+		"stylelint": "^17.14.1",
 		"typescript": "^6.0.3",
-		"wikiparser-node": "^1.44.0"
+		"wikiparser-node": "^1.46.2"
 	},
 	"license": "MIT",
 	"repository": {

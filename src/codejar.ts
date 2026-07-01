@@ -87,7 +87,7 @@ export function CodeJar(
       recordHistory()
       return
     }
-    return print()
+    return print() // eslint-disable-line unicorn/no-useless-recursion
   }
 
   /**

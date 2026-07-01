@@ -5,6 +5,23 @@ export default extend(
 	{
 		files: ['**/*.ts'],
 		rules: {
+			'@stylistic/indent': [
+				2,
+				2,
+			],
+			'@stylistic/object-curly-spacing': [
+				2,
+				'always',
+			],
+			'@stylistic/semi': [
+				2,
+				'never',
+			],
+		},
+	},
+	{
+		files: ['src/codejar.ts'],
+		rules: {
 			'arrow-body-style': 0,
 			'consistent-return': 0,
 			curly: 0,
@@ -24,10 +41,6 @@ export default extend(
 			'prefer-const': 0,
 			'prefer-template': 0,
 			'require-unicode-regexp': 0,
-			'@stylistic/indent': [
-				2,
-				2,
-			],
 			'@stylistic/indent-binary-ops': 0,
 			'@stylistic/max-len': 0,
 			'@stylistic/member-delimiter-style': [
@@ -39,25 +52,20 @@ export default extend(
 				},
 			],
 			'@stylistic/no-extra-parens': 0,
-			'@stylistic/object-curly-spacing': [
-				2,
-				'always',
-			],
 			'@stylistic/one-var-declaration-per-line': 0,
-			'@stylistic/semi': [
-				2,
-				'never',
-			],
 			'regexp/no-useless-escape': 0,
 			'regexp/prefer-d': 0,
 			'regexp/prefer-regexp-exec': 0,
 			'unicorn/consistent-function-scoping': 0,
 			'unicorn/no-lonely-if': 0,
 			'unicorn/no-negated-condition': 0,
+			'unicorn/no-unnecessary-splice': 0,
 			'unicorn/prefer-code-point': 0,
 			'unicorn/prefer-global-this': 0,
 			'unicorn/prefer-keyboard-event-key': 0,
+			'unicorn/prefer-simple-condition-first': 0,
 			'unicorn/prefer-string-replace-all': 0,
+			'unicorn/prefer-ternary': 0,
 			'@typescript-eslint/ban-ts-comment': 0,
 			'@typescript-eslint/consistent-type-definitions': 0,
 			'@typescript-eslint/explicit-function-return-type': 0,
