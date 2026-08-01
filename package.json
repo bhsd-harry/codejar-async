@@ -28,7 +28,7 @@
 		"http-server": "^14.1.1",
 		"markdownlint-cli2": "^0.22.1",
 		"stylelint": "^17.13.0",
-		"typescript": "^6.0.3",
+		"typescript": "^7.0.2",
 		"wikiparser-node": "^1.44.0"
 	},
 	"license": "MIT",
