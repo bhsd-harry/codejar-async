@@ -23,13 +23,13 @@
 		"test:end": "pkill -x http-server"
 	},
 	"devDependencies": {
-		"@bhsd/code-standard": "^4.0.0",
-		"eslint": "^10.8.0",
+		"@bhsd/code-standard": "^4.1.0",
+		"eslint": "^10.8.1",
 		"http-server": "^14.1.1",
 		"markdownlint-cli2": "^0.23.2",
 		"stylelint": "^17.14.1",
 		"typescript": "^6.0.3",
-		"wikiparser-node": "^1.46.2"
+		"wikiparser-node": "^1.46.3"
 	},
 	"license": "MIT",
 	"repository": {
