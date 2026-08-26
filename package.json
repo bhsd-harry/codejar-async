@@ -24,7 +24,7 @@
 	},
 	"devDependencies": {
 		"@bhsd/code-standard": "^4.1.0",
-		"eslint": "^10.8.1",
+		"eslint": "^10.9.1",
 		"http-server": "^14.1.1",
 		"markdownlint-cli2": "^0.23.2",
 		"stylelint": "^17.14.1",
