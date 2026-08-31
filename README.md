@@ -1,9 +1,12 @@
-<p align="center"><a href="https://medv.io/codejar/"><img src="https://medv.io/assets/codejar.svg" width="72" alt="CodeJar"></a></p>
+<p align="center"><a href="https://medv.io/codejar/">
+<img src="https://medv.io/assets/codejar.svg" width="72" alt="CodeJar">
+</a></p>
 <h3 align="center">CodeJar – an embeddable code editor for the browser</h3>
 
 [![npm version](https://badge.fury.io/js/codejar-async.svg)](https://www.npmjs.com/package/codejar-async)
 
-**CodeJar-Async** is a fork of [CodeJar](https://medv.io/codejar/) with async highlighting support.
+**CodeJar-Async** is a fork of [CodeJar](https://medv.io/codejar/) with async
+highlighting support.
 
 ## Features
 
@@ -48,7 +51,8 @@ Third argument to `CodeJar` is options:
 - `tab: string` replaces "tabs" with given string. Default: `\t`.
 	- Note: use css rule `tab-size` to customize size.
 - `spellcheck: boolean` enables spellchecking on the editor. Default `false`.
-- `catchTab: boolean` catches Tab keypress events and replaces it with `tab` string. Default: `true`.
+- `catchTab: boolean` catches Tab keypress events and replaces it with `tab` string.
+  Default: `true`.
 - `preserveIdent: boolean` keeps indent levels on new line. Default `true`.
 - `addClosing: boolean` automatically adds closing brackets, quotes. Default `true`.
 - `history` records history. Default `true`.
