@@ -20,16 +20,17 @@
 		"lint": "npm run lint:ts && npm run lint:css && npm run lint:md",
 		"build": "rm -rf dist/; tsc && eslint --no-config-lookup -c eslint.dist.js --no-inline-config dist/*.js",
 		"server": "npm run test:end; http-server .. -c-1 --cors -s &",
-		"test:end": "pkill -x http-server"
+		"test:end": "pkill -x http-server",
+		"test": "echo 'This package has no tests.'"
 	},
 	"devDependencies": {
-		"@bhsd/code-standard": "^4.2.0",
-		"eslint": "^10.10.0",
+		"@bhsd/code-standard": "^4.3.0",
+		"eslint": "^10.12.0",
 		"http-server": "^14.1.1",
-		"markdownlint-cli2": "^0.23.2",
-		"stylelint": "^17.15.0",
+		"markdownlint-cli2": "^0.23.3",
+		"stylelint": "^17.16.0",
 		"typescript": "^6.0.3",
-		"wikiparser-node": "^1.46.4"
+		"wikiparser-node": "^1.48.0"
 	},
 	"license": "MIT",
 	"repository": {
